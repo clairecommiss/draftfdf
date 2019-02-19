@@ -6,7 +6,7 @@
 #    By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/20 14:10:49 by ccommiss          #+#    #+#              #
-#    Updated: 2018/12/27 17:21:15 by ccommiss         ###   ########.fr        #
+#    Updated: 2019/01/25 10:50:03 by ccommiss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,12 +29,14 @@ GCC = gcc
 
 MLX = -lft -lmlx -framework OpenGL -framework AppKit
 
-$(NAME) :
+$(NAME) : $(OBJS)
 	make -C ./minilibx_macos
-	make -C ./libft
-	$(GCC) $(CFLAG) $(INCLUDES) -c $(SRCS) 
+	make -C ./libft 
 	$(GCC) -o $(NAME)  $(OBJS) $(LIB) $(MLX)
 	@echo "$(NAME) has been correctly compiled, congrats!"
+
+%.o : %.c
+	$(GCC) $(CFLAG) $(INCLUDES) -c $< -o $@
 
 all: $(NAME)
 

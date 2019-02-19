@@ -6,7 +6,7 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:30:30 by ccommiss          #+#    #+#             */
-/*   Updated: 2018/12/28 15:44:47 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/02/17 18:19:08 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 
 int		get_next_line(const int fd, char **line);
 
+
+
 typedef struct s_fdf
 {
 	void	*mlx_ptr;
@@ -41,7 +43,7 @@ typedef struct s_fdf
 
 //parser 
 void	*ft_analyse(char **file, int fd, t_fdf *env);
-void	ft_coord(t_fdf *data, char **file);
+t_fdf	*ft_coord(t_fdf *data, char **file);
 void    fill_pixel(char **info, int x, int y, int color);
 
 

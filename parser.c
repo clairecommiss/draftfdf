@@ -6,13 +6,13 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/23 18:31:04 by ccommiss          #+#    #+#             */
-/*   Updated: 2018/12/28 17:44:48 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/01/25 17:29:22 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h" 
 
-void	ft_coord(t_fdf *data, char **file)
+t_fdf	*ft_coord(t_fdf *data, char **file)
 {
 	int i;
 	int x;
@@ -31,7 +31,13 @@ void	ft_coord(t_fdf *data, char **file)
 			data->coord[count] = (float *)malloc(sizeof(float) * 3);
 			data->coord[count][0] = x;
 			data->coord[count][1] = y;
-			//data->coord[count][2] = ft_atoi(*file[i]);
+			if (ft_isdigit(file[0][i - 1]) == 1)
+				data->coord[count][2] = ft_atoi(&file[0][i - 1]);
+			else
+				data->coord[count][2] = 0;
+			
+			printf("X-Y-Z VAUT : pt %d [%d - %d - %f] \n", count, x, y, data->coord[count][2]);
+			printf ("DATA %f", data->coord[count][0] );
 			x++;
 			count++;
 		}
@@ -43,6 +49,7 @@ void	ft_coord(t_fdf *data, char **file)
 		i++;
 	}
 	data->coord[count] = 0;
+	return (data);
 }
 
 void	*ft_analyse(char **file, int fd, t_fdf *data)
@@ -71,14 +78,12 @@ void	*ft_analyse(char **file, int fd, t_fdf *data)
 	}
 	data->size = data->x_width * data->y_height;
 	printf("WIDTH = %d & HEIGHT = %d && SIZE = %d\n", data->x_width, data->y_height, data->size);
-
 	printf("AYAYAYAY\n");
 	printf("file = \n%s\n", *file);
 
 	if (!(data->coord = (float **)malloc(sizeof(float *) * (data->size))))
 	 	return (0);
 	printf("ON A MALLOC AVEC SUCCES OU PEUT ETRE PAS\n");
-	ft_coord(data, file);
+	data = ft_coord(data, file);
 	return ("WESH\n");
 }
-		

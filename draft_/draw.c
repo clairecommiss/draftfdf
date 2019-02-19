@@ -6,7 +6,7 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/28 17:23:12 by ccommiss          #+#    #+#             */
-/*   Updated: 2018/12/28 19:19:45 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/01/25 09:38:08 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int			draw(t_fdf *data, unsigned char color)
 		while (data->coord[count][0] )
 		{	
 			((int *)data->info)[(data->coord[count][1]) * data->x_width + data->coord[count][0]] = color;
-            data->coord[count][0]++
+            data->coord[count][0]++;
 		}
 
 

@@ -6,11 +6,11 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/11 15:11:49 by ccommiss          #+#    #+#             */
-/*   Updated: 2018/11/15 16:28:12 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/01/25 11:24:19 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "includes/libft.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
