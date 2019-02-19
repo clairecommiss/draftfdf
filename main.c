@@ -6,7 +6,7 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/26 18:26:24 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/02/17 19:18:17 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/02/19 17:18:41 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,100 +26,78 @@ char	*read_it(int fd)
 	return (final);
 }
 
-// void ligne(t_fdf *env) {
-//   int dx; //coef dire de x entre deux pts
-//   int dy; //coef dir de y entre 2pts
-//   int i;
-//   int xinc;
-//   int yinc;
-//   int x ;
-//   int y ;
-//   int cumul;
-//   int pt = 0;
-
-// int *pixels = (int *)env->info;
-
-// while (pt <= env->size){
-// 	x = env->coord[pt][0];
-// 	y = env->coord[pt][1];
-//   	dx = env->coord[pt + 1][0]- env->coord[pt][0];
-//   	dy = env->coord[pt + 1][1]- env->coord[pt][1];
-// 	  pt++;
-//   	xinc = ( dx > 0 ) ? 1 : -1 ;
-//   	yinc = ( dy > 0 ) ? 1 : -1 ;
-//   	dx = abs(dx) ;
-//   	dy = abs(dy) ;
-//   	pixels[x] = 0xff6666;
-//   	if ( dx > dy ) {
-//     cumul = dx / 2 ;
-//     for ( i = 1 ; i <= dx ; i++ ) {
-//       x += xinc ;
-//       cumul += dy ;
-//       if ( cumul >= dx ) {
-//         cumul -= dx ;
-//         y += yinc ; }
-//       pixels[x] = 0xff6666; } }
-//     else {
-//     cumul = dy / 2 ;
-//     for ( i = 1 ; i <= dy ; i++ ) {
-//       y += yinc ;
-//       cumul += dx ;
-//       if ( cumul >= dy ) {
-//         cumul -= dy ;
-//         x += xinc ; }
-//       pixels[x] = 0xff6666; }
-// 	   }
-// }
-
-//}
+void ligne(t_fdf *env, int color) {
+	int *pixels = (int *)env->info;
+	int pt = 0;
+	float cd;  // coefficient directeur
+	int x0;  
+	int y0;
+	int y1;
+	int x1;
+	int y;
+	int x = 0;
 
 
-void    fill_full(t_fdf *env, int x, int y, int color)
-{
-    int *pixels = (int *)env->info;
-		
-    
-    while ((y * env->x_width + x) < env->size)
-    {
-    	x = 0;
-			printf("BIZARRE??\n");
-			while (x < env->x_width)
-			{
-				printf("POSITION = %d\n", y * env->x_width + x);
-				printf("ON EST LA??\n");
-				if (env->coord[y * env->x_width + x][2] == 0)
-				{
-					printf("EUH?\n");
-					pixels[(y*10 * env->x_width + x) * 10] = 0xff6666;
-			//		printf("DATA COORD ICI %f %f %f\n", env->coord[y * env->x_width + x][0], env->coord[y * env->x_width + x][1], env->coord[y * env->x_width + x][2]);
-				}
-				else 
-				{
-					pixels[(y*10 * env->x_width + x) * 10] = color;
-				}
-				printf("EUH?\n");
-				printf("X = %d\n", x);
-				printf("Y = %d\n", y);
-				x++;
-				}
-		y ++;
-		printf("SEGFAULT??\n");
-    }
+	while (pt <= env->size - 2)
+	{
+		x0 = env->coord[pt][0];
+		y0 = env->coord[pt][1];
+		x1 = env->coord[pt + 1][0];
+		y1 = env->coord[pt + 1][1];
+		int dx = x1 - x0;
+		int dy = y1 - y0;
+		cd = abs(dy/dx);
+		printf("PT %d\n", pt);
+
+
+		y = cd * x1 + y1; 
+		pixels[(y*20 * env->x_width + x) * 20] = color;
+		pt++;
+	
+	}
+
 }
+	 
+
+
+
+// void    fill_full(t_fdf *env, int x, int y, int color)
+// {
+//     int *pixels = (int *)env->info;
+		
+//     while ((y * env->x_width + x) < env->size)
+//     {
+//     	x = 0;
+// 			while (x < env->x_width)
+// 			{
+// 				printf("POSITION = %d\n", y * env->x_width + x);
+// 				if (env->coord[y * env->x_width + x][2] == 0)
+// 				{
+// 					printf("EUH?\n");
+// 					pixels[(y*10 * env->x_width + x) * 10] = 0xff6666;
+// 			//		printf("DATA COORD ICI %f %f %f\n", env->coord[y * env->x_width + x][0], env->coord[y * env->x_width + x][1], env->coord[y * env->x_width + x][2]);
+// 				}
+// 				else 
+// 				{
+// 					pixels[(y*10 * env->x_width + x) * 10] = color;
+// 				}
+// 				printf("X = %d\n", x);
+// 				printf("Y = %d\n", y);
+// 				x++;
+// 				}
+// 		y ++;
+//     }
+// }
 
 int		closewin(int key, void *param)
 {
 	t_fdf *envtot = (t_fdf *)param;
 	if (key == 53)
 	{
-		//mlx_destroy_image
-		printf("COUCOU\n");
-		//mlx_clear_window(param.mlx_ptr, param.win_ptr);
 		mlx_destroy_window(envtot->mlx_ptr, envtot->win_ptr);
 		exit(0);
 	}
 	return(0);
-
 }
 
 int		main(int ac,char **argv)
@@ -135,7 +113,6 @@ int		main(int ac,char **argv)
 	if (ac != 2)
 		return (-1); //a gerer later les exceptions et tutti quanti babe 
 	fd = open(argv[1], O_RDONLY);
-	//printf("ON A LU\n");
 	ft_analyse(&file, fd, &env);
 	printf("OK\n");
 
@@ -145,11 +122,11 @@ int		main(int ac,char **argv)
 
     env.mlx_ptr = mlx_init();
   	env.win_ptr = mlx_new_window(env.mlx_ptr, (env.x_width * 20), (env.y_height * 20), "fdf");
-  	env.img_ptr = mlx_new_image(env.mlx_ptr, (env.x_width * 10), (env.y_height * 10 ));
+  	env.img_ptr = mlx_new_image(env.mlx_ptr, (env.x_width * 20), (env.y_height * 20 ));
     env.info = mlx_get_data_addr(env.img_ptr, &(bpp), &(size_line), &(endian));
 	// printf("ENV %s\n", env.info);
-    fill_full(&env, 0, 0, 0xFFFFFF);
-//	ligne(&env);
+   // fill_full(&env, 0, 0, 0xFFFFFF);
+	ligne(&env, 0xFFFFFF);
 	mlx_put_image_to_window(env.mlx_ptr, env.win_ptr, env.img_ptr, 0, 0);
 	mlx_key_hook(env.win_ptr, closewin, &env);
     // printf("INFO = %s\n", env.info);
