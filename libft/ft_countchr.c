@@ -6,7 +6,7 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/23 19:02:37 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/01/25 11:24:36 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/02/22 19:28:54 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@ int		ft_countchr(const char *s, int c)
 
 	i = 0;
 	count = 0;
+	printf ("COUCOU ICI %s ---\n", s);
 	while (s[i])
 	{
-		if (s[i] == c)
+		if (s[i] == c && ft_isdigit(s[i - 1]))
+		{
 			count++;
+		}
 		i++;
 	}
-	return (count/2 + 1);
+	return (count);
 }
