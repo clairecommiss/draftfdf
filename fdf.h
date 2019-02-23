@@ -6,7 +6,7 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:30:30 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/02/22 19:44:52 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/02/22 23:14:58 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <stdio.h>
 # include <string.h>
 # include <stdlib.h>
+# include <math.h>
 
 int		get_next_line(const int fd, char **line);
 
@@ -36,7 +37,7 @@ typedef struct s_fdf
 	int		x_width;
 	int		y_height;
 	int		size; // = largeur X hauteur pour le nb total de pts 
-	float	**coord;
+	int	**coord;
 	int		zoom;
 
 }				t_fdf;
@@ -48,6 +49,7 @@ void    fill_pixel(char **info, int x, int y, int color);
 int		closewin(int key, void *param);
 int 	zoom(int key, void *param);
 void	sendpoints(t_fdf *env);
+static void iso(int *x, int *y, int z);
 
 
 #endif
