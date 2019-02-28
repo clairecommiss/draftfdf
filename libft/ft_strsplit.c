@@ -6,7 +6,7 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 13:30:51 by ccommiss          #+#    #+#             */
-/*   Updated: 2018/11/16 14:12:39 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/02/28 17:28:44 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void			ft_malloceach(char *str, char **tab, char c)
 		if (a != 0)
 		{
 			if (!(tab[j] = (char *)malloc(sizeof(char) * a + 1)))
-				tab[j] = NULL;
+				return (NULL);
 			j++;
 		}
 		i++;
@@ -93,7 +93,7 @@ char				**ft_strsplit(char const *str, char c)
 	if (str == NULL)
 		return (NULL);
 	if (!(tab = (char **)malloc(sizeof(char *)
-		* (ft_countwords((char *)str, c) + 1))))
+		* (ft_countwords((char *)str, c) + 4))))
 		return (NULL);
 	ft_malloceach((char *)str, tab, c);
 	fillthetab((char *)str, tab, c);

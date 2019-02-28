@@ -6,7 +6,7 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 17:57:56 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/02/22 17:59:54 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/02/28 17:58:02 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,7 @@ if (key == KEY_Z || key == KEY_D)
 		x++;
 	}
 		sendpoints(env);
-		printf("KAKA\n");
-		mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->img_ptr, 1000, 500);
-		printf("KAKA 2\n");
+		mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->img_ptr, 0, 0);
 	}
 	return (0);
 }

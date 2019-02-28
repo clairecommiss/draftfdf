@@ -6,7 +6,7 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:30:30 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/02/22 23:14:58 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/02/28 16:05:23 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,19 @@ typedef struct s_fdf
 	int		x_width;
 	int		y_height;
 	int		size; // = largeur X hauteur pour le nb total de pts 
-	int	**coord;
+	float	**coord;
 	int		zoom;
 
 }				t_fdf;
 
 //parser 
-void	*ft_analyse(char **file, int fd, t_fdf *env);
+int	ft_analyse(char **file, int fd, t_fdf *env);
 t_fdf	*ft_coord(t_fdf *data, char **file);
 void    fill_pixel(char **info, int x, int y, int color);
 int		closewin(int key, void *param);
 int 	zoom(int key, void *param);
 void	sendpoints(t_fdf *env);
-static void iso(int *x, int *y, int z);
+ void iso(float *x, float *y, float z);
 
 
 #endif

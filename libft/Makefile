@@ -6,7 +6,7 @@
 #    By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/13 14:01:15 by ccommiss          #+#    #+#              #
-#    Updated: 2018/12/27 17:19:45 by ccommiss         ###   ########.fr        #
+#    Updated: 2019/02/28 17:35:06 by ccommiss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ SRC = ft_memset.c\
       ft_strsub.c\
       ft_strjoin.c\
       ft_strtrim.c\
-      ft_strsplit.c\
+      ft_strsplit2.c\
       ft_itoa.c\
       ft_putchar.c\
       ft_putstr.c\
