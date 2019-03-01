@@ -6,7 +6,7 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:30:30 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/02/28 16:05:23 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/03/01 14:51:44 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ int		closewin(int key, void *param);
 int 	zoom(int key, void *param);
 void	sendpoints(t_fdf *env);
  void iso(float *x, float *y, float z);
-
+int move(int key, void *param);
 
 #endif

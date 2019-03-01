@@ -6,7 +6,7 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/26 18:26:24 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/02/28 18:40:15 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/03/01 15:25:12 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void sendpoints(t_fdf *env)
 
 	while (pt < env->size - 1)
 	{
-	//	printf("----------------------- ENTERING NEW POINT : %d -----------------------------\n", pt);
+		//printf("----------------------- ENTERING NEW POINT : %d -----------------------------\n", pt);
 	//	printf("drawing LINE from pt  %d\n", pt);
 		if (i++ < env->x_width - 1)
 			colonne(env, pt, pt+1, 0xFFFFFF);
@@ -144,10 +144,13 @@ int		main(int ac,char **argv)
 		return (-1); //a gerer later les exceptions et tutti quanti babe 
 	fd = open(argv[1], O_RDONLY);
 	ft_analyse(&file, fd, &env);
+	printf("HOLA KE TAL\n");
 
 	env.mlx_ptr = mlx_init();
 	env.win_ptr = mlx_new_window(env.mlx_ptr, 2560, 1300, "fdf");
+	printf("HOLA KE TAL 2\n");
 	env.img_ptr = mlx_new_image(env.mlx_ptr, 2560, 1300);
+	printf("HOLA KE TAL 3\n");
 	env.info = mlx_get_data_addr(env.img_ptr, &(bpp), &(size_line), &(endian));
 	env.zoom = 30;
 
@@ -159,6 +162,7 @@ int		main(int ac,char **argv)
 	mlx_key_hook(env.win_ptr, closewin, &env);
 	printf("14\n");
 	mlx_key_hook(env.win_ptr, zoom, &env);
+	mlx_key_hook(env.win_ptr, move, &env);
 	printf("15\n");
 	// printf("INFO = %s\n", env.info);
 	mlx_loop(env.mlx_ptr);
