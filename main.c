@@ -6,7 +6,7 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/26 18:26:24 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/03/01 15:25:12 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/03/02 18:37:46 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,10 @@ char	*read_it(int fd)
 void	drawline(t_fdf *env, int y, int x, int color)
 {
 	int *pixels = (int *)env->info;
-//printf("tRYNING TO DRAW : %d %d ----- VALUE ON MAP : %d \n", x, y, (y * 2560 + x));
+//	printf("tRYNING TO DRAW : %d %d ----- VALUE ON MAP : %d \n", x, y, (y * 2560 + x));
 	if (y >= 0 && y <= 2560 && x >= 0 && x <= 2560 && (y * 2560 + x) <= 2560*2560/2)
 		pixels[(y * 2560 + x)] = color;
 //printf ("ET C LE FAIL\n");
-
 }
 
 void colonne(t_fdf *env, int pt1, int pt2, int color) 
@@ -46,13 +45,22 @@ void colonne(t_fdf *env, int pt1, int pt2, int color)
 	int xinc, yinc;
 	int cumul;
 
-	x0 = env->zoom * env->coord[pt1][0] + 2560/2;
+	x0 = env->zoom * env->coord[pt1][0];
 	y0 = env->zoom * env->coord[pt1][1];
-	x1 = env->zoom * env->coord[pt2][0] + 2560/2;
-	y1 = env->zoom * env->coord[pt2][1];
+	x1 = env->zoom * env->coord[pt2][0];
+	y1 = env->zoom * env->coord[pt2][1] ;
+	
 //	printf (" BEFORE ISO : FROM PT %d : x= %f, y=%f -> TO PT %d, x=%f, y=%f\n", pt1, x0, y0, (pt2), x1, y1);
-	iso (&x0, &y0, env->coord[pt1][2] * env->zoom);
-	iso (&x1, &y1, env->coord[pt2][2] * env->zoom);
+if (env->view.iso == 1){
+	iso (&x0, &y0, env->coord[pt1][2] * env->alt, env);
+	iso (&x1, &y1, env->coord[pt2][2] * env->alt, env);
+}
+else if (env->view.para == 1){
+	rot (&x0, &y0, env->coord[pt1][2] * env->alt, env);
+	rot (&x1, &y1, env->coord[pt2][2] * env->alt, env);
+}
+
+
 	//	printf ("ENV ZOOM %f\n", env->zoom);
 	//printf (" AFTER ISO : FROM PT %d : x= %f, y=%f -> TO PT %d, x=%f, y=%f\n", pt1, x0, y0, (pt2), x1, y1);
 	float dx = x1 - x0;
@@ -75,7 +83,7 @@ void colonne(t_fdf *env, int pt1, int pt2, int color)
 				cumul -= dx ;
 				y0 += yinc ; 
 			}
-			if (env->coord[pt1][2] != 0)
+			if (env->coord[pt1][2] && env->coord[pt2][2] != 0)
 				drawline(env, y0, x0, 0xff6666);
 			else
 				drawline(env, y0, x0, color);
@@ -109,7 +117,7 @@ void sendpoints(t_fdf *env)
 	while (pt < env->size - 1)
 	{
 		//printf("----------------------- ENTERING NEW POINT : %d -----------------------------\n", pt);
-	//	printf("drawing LINE from pt  %d\n", pt);
+		//printf("drawing LINE from pt  %d\n", pt);
 		if (i++ < env->x_width - 1)
 			colonne(env, pt, pt+1, 0xFFFFFF);
 		else
@@ -120,16 +128,31 @@ void sendpoints(t_fdf *env)
 	}
 }
 
- void iso(float *x, float *y, float z)
+ void iso(float *x, float *y, float z, t_fdf *env)
 {
 	float previous_x;
 	float previous_y;
 
 	previous_x = *x;
 	previous_y = *y;
-	*x = (previous_x - previous_y) * cos(0.523599);
-	*y = -z + (previous_x + previous_y) * sin(0.523599);
+	*x = (previous_x - previous_y) * cos(ROT30) + 2560/2;
+	*y = -z + (previous_x + previous_y) * sin(env->rot) + 1300/2; 
 }
+
+void 	rot(float *x, float *y, float z, t_fdf *env)
+{
+	float previous_x;
+	float previous_y;
+	float a = 1;
+	(void)z;
+	(void)env;
+
+	previous_x = *x;
+	previous_y = *y;
+	*x = previous_x *cos(a) - previous_y *sin(a) - z + 2560/2;
+	*y = previous_x *sin(a) + previous_y*cos(a) + 1300/2;
+}
+
 
 int		main(int ac,char **argv)
 {
@@ -143,6 +166,8 @@ int		main(int ac,char **argv)
 	if (ac != 2)
 		return (-1); //a gerer later les exceptions et tutti quanti babe 
 	fd = open(argv[1], O_RDONLY);
+	env.zoom = INITZOOM;
+	env.rot = 0.52;
 	ft_analyse(&file, fd, &env);
 	printf("HOLA KE TAL\n");
 
@@ -152,17 +177,14 @@ int		main(int ac,char **argv)
 	env.img_ptr = mlx_new_image(env.mlx_ptr, 2560, 1300);
 	printf("HOLA KE TAL 3\n");
 	env.info = mlx_get_data_addr(env.img_ptr, &(bpp), &(size_line), &(endian));
-	env.zoom = 30;
 
 	printf("1\n");
 	sendpoints(&env);
 	printf("2\n");
 	mlx_put_image_to_window(env.mlx_ptr, env.win_ptr, env.img_ptr, 0, 0);
 	printf("13\n");
-	mlx_key_hook(env.win_ptr, closewin, &env);
+	mlx_key_hook(env.win_ptr, keyrepartition, &env);
 	printf("14\n");
-	mlx_key_hook(env.win_ptr, zoom, &env);
-	mlx_key_hook(env.win_ptr, move, &env);
 	printf("15\n");
 	// printf("INFO = %s\n", env.info);
 	mlx_loop(env.mlx_ptr);
