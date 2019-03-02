@@ -6,7 +6,7 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/26 18:26:24 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/03/02 18:37:46 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/03/02 19:25:02 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,7 @@ int		main(int ac,char **argv)
 	mlx_put_image_to_window(env.mlx_ptr, env.win_ptr, env.img_ptr, 0, 0);
 	printf("13\n");
 	mlx_key_hook(env.win_ptr, keyrepartition, &env);
+	 mlx_hook(env.win_ptr, int x_event, int x_mask, int (*funct)(), void *param);
 	printf("14\n");
 	printf("15\n");
 	// printf("INFO = %s\n", env.info);

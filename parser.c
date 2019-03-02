@@ -6,7 +6,7 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/23 18:31:04 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/03/01 23:00:53 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/03/02 18:58:12 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,15 +75,15 @@ int	ft_analyse(char **file, int fd, t_fdf *data)
 			free(tab);
 		}
 		data->y_height++;
-		printf("TEST %d\n", data->y_height);
+	//	printf("TEST %d\n", data->y_height);
 		*file = ft_strjoin2(*file, line);	
 		*file = ft_strjoin2(*file, "\n"); 
 	}
 	data->size = data->x_width * data->y_height;
-	printf("WIDTH = %d & HEIGHT = %d && SIZE = %d\n", data->x_width, data->y_height, data->size);
+	//printf("WIDTH = %d & HEIGHT = %d && SIZE = %d\n", data->x_width, data->y_height, data->size);
 	if (!(data->coord = (float **)malloc(sizeof(float *) * (data->size + 4))))
 	 	return (0);
 	data = ft_coord(data, file);
-	printf("HEY BITCHES \n\n");
+//	printf("HEY BITCHES \n\n");
 	return (1);
 }
