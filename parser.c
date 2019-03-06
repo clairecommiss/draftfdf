@@ -6,7 +6,7 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/23 18:31:04 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/03/02 18:58:12 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/03/06 18:08:19 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ t_fdf	*ft_coord(t_fdf *data, char **file)
 		{
 			printf("LINE A %s\n", line[x]);
 			data->coord[count] = (float *)malloc(sizeof(float) * 3);
-			data->coord[count][0] = (float)x;
-			data->coord[count][1] = (float)y;
+			data->coord[count][0] = (float)x - 0.5 * data->x_width;
+			data->coord[count][1] = (float)y - 0.5 * data->y_height;
 			data->coord[count][2] = (float)ft_atoi(line[x]);
 			printf("DATA COORD de COUNT %d ---- X = %d ; Y = %d ; Z = %f \n", count, x, y, data->coord[count][2]);
 			count++;

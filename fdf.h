@@ -6,13 +6,13 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:30:30 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/03/02 17:57:53 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/03/06 16:33:26 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-# define BUFF_SIZE 60
+# define BUFF_SIZE 10000
 
 # define ROT30 (30 * 3.14 / 180)
 # define INITZOOM 30
@@ -52,7 +52,11 @@ typedef struct s_fdf
 	float	**coord;
 	int		zoom;
 	int		alt;
-	double rot;
+	double rot_X;
+	double rot_Y;
+	double rot_Z;
+	double trans_y;
+	double trans_x;
 	t_view  view; 
 
 }				t_fdf;
@@ -60,12 +64,11 @@ typedef struct s_fdf
 //parser 
 int	ft_analyse(char **file, int fd, t_fdf *env);
 t_fdf	*ft_coord(t_fdf *data, char **file);
-void    fill_pixel(char **info, int x, int y, int color);
 int		closewin(t_fdf *env);
 void 	zoom(t_fdf *env, int key);
 void	sendpoints(t_fdf *env);
- void iso(float *x, float *y, float z, t_fdf *env);
- void 	rot(float *x, float *y, float z, t_fdf *env);
+ void iso(float *x, float *y, float *z, t_fdf *env);
+ void 	para(float *x, float *y, float z, t_fdf *env);
 
 int		keyrepartition(int key, void *param);
 
