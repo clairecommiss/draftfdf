@@ -6,7 +6,7 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/26 18:26:24 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/03/07 16:25:51 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/03/07 16:29:22 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,11 +121,8 @@ void bresen2(t_fdf *env, int color)
 			cumul -= dy;
 			env->pt.x0 += xinc; 
 		}
-		if (env->pt.z0 && env->pt.z1 != 0)
-			drawline(env, env->pt.y0 + env->trans_y, env->pt.x0 + env->trans_x, color);
-		else
-			drawline(env, env->pt.y0 + env->trans_y, env->pt.x0 + env->trans_x, color);
-		}
+		drawline(env, env->pt.y0 + env->trans_y, env->pt.x0 + env->trans_x, color);
+	}
 }
 
 
