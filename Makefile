@@ -6,7 +6,7 @@
 #    By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/20 14:10:49 by ccommiss          #+#    #+#              #
-#    Updated: 2019/02/22 18:05:04 by ccommiss         ###   ########.fr        #
+#    Updated: 2019/03/07 13:50:44 by ccommiss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME = ft_fdf
 SRCS = main.c \
 		parser.c \
 		handlekey.c \
+		views.c \
 		get_next_line.c 
 
 OBJS = $(SRCS:.c=.o)

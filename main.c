@@ -6,7 +6,7 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/26 18:26:24 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/03/06 16:43:06 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/03/07 16:25:51 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,87 +29,105 @@ char	*read_it(int fd)
 void	drawline(t_fdf *env, int y, int x, int color)
 {
 	int *pixels = (int *)env->info;
+	
 	if (y >= 0 && y <= 2560 && x >= 0 && x <= 2560 && (y * 2560 + x) < (2560 * 1300))
-		pixels[(y * 2560 + x)] = color;
+	{
+		if (env->pt.z0 && env->pt.z1 != 0)
+			pixels[(y * 2560 + x)] = color;
+		else 
+			pixels[(y * 2560 + x)] = 0xff6666;
+	}
 }
 
-void colonne(t_fdf *env, int pt1, int pt2, int color) 
+void 	mod_X(t_fdf *env, float x0, float x1)
 {
-	float x0;  
-	float y0;
-	float y1;
-	float x1;
-	float z1;
-	float z2;
+	env->pt.x0 = x0 * env->zoom;
+	env->pt.x1 = x1 * env->zoom;
+}
+
+void 	mod_Y(t_fdf *env, float y0, float y1)
+{
+	env->pt.y0 = y0 * env->zoom;
+	env->pt.y1 = y1 * env->zoom;
+}
+
+void 	mod_Z(t_fdf *env, float z0, float z1)
+{
+	env->pt.z0 = z0 * env->alt;
+	env->pt.z1 = z1 * env->alt;
+}
+
+void bresen1(t_fdf *env, int pt1, int pt2, int color) 
+{
 	int i;
 	int xinc, yinc;
 	int cumul;
+	float dx;
+	float dy;
 
-	x0 = env->zoom * env->coord[pt1][0];
-	y0 = env->zoom * env->coord[pt1][1];
-	x1 = env->zoom * env->coord[pt2][0];
-	y1 = env->zoom * env->coord[pt2][1] ;
-z1 = env->coord[pt1][2] * env->alt;
-z2 = env->coord[pt2][2] * env->alt;
-	
-//	printf (" BEFORE ISO : FROM PT %d : x= %f, y=%f -> TO PT %d, x=%f, y=%f\n", pt1, x0, y0, (pt2), x1, y1);
-if (env->view.iso == 1){
-	iso (&x0, &y0, &z1, env);
-	iso (&x1, &y1, &z2, env);
-}
-if (env->view.para == 1){
-	para (&x0, &y0, env->coord[pt1][2] * env->alt, env);
-	para (&x1, &y1, env->coord[pt2][2] * env->alt, env);
-}
-
-	//	printf ("ENV ZOOM %f\n", env->zoom);
-	//printf (" AFTER ISO : FROM PT %d : x= %f, y=%f -> TO PT %d, x=%f, y=%f\n", pt1, x0, y0, (pt2), x1, y1);
-	float dx = x1 - x0;
-	float dy = y1 - y0;
+	mod_X(env, env->coord[pt1][0], env->coord[pt2][0]);
+	mod_Y(env, env->coord[pt1][1], env->coord[pt2][1]);
+	mod_Z(env, env->coord[pt1][2], env->coord[pt2][2]);
+	handleviews(env);
+	dx = env->pt.x1 - env->pt.x0;
+	dy = env->pt.y1 - env->pt.y0;
 	xinc = ( dx > 0 ) ? 1 : -1 ;
 	yinc = ( dy > 0 ) ? 1 : -1 ;
 	dx = fabsf(dx) ;
   	dy = fabsf(dy) ;
-	drawline(env, y0 + env->trans_y, x0 + env->trans_x, color);
-	if ( dx > dy ) 
+	drawline(env, env->pt.y0 + env->trans_y, env->pt.x0 + env->trans_x, color);
+	if ( dx > dy )
 	{
-	
-		cumul = dx / 2 ;
-		for ( i = 1 ; i <= dx ; i++ ) 
+	cumul = dx / 2 ;
+	for ( i = 1 ; i <= dx ; i++ ) 
+	{
+		env->pt.x0 += xinc ;
+		cumul += dy ;
+		if ( cumul >= dx ) 
 		{
-			x0 += xinc ;
-			cumul += dy ;
-			if ( cumul >= dx ) 
-			{
-				cumul -= dx ;
-				y0 += yinc ; 
-			}
-			if (env->coord[pt1][2] && env->coord[pt2][2] != 0)
-				drawline(env, y0 + env->trans_y, x0 + env->trans_x, 0xff6666);
-			else
-				drawline(env, y0 + env->trans_y, x0 + env->trans_x, color);
-		} 
+			cumul -= dx ;
+			env->pt.y0 += yinc ; 
+		}
+		drawline(env, env->pt.y0 + env->trans_y, env->pt.x0 + env->trans_x, color);
+	}
 	}
 	else 
-	{
-		cumul = dy / 2 ;
-		for ( i = 1 ; i <= dy; i++ ) 
-		{
-			y0 += yinc ;
-			cumul += dx ;
-			if ( cumul >= dy ) 
-			{
-				cumul -= dy;
-				x0 += xinc; 
-			}
-		//	printf ("TRANS : HORIZ %f ----- VERT %f",env->trans_x, env->trans_y);
-			if (env->coord[pt1][2] != 0)
-				drawline(env, y0 + env->trans_y, x0 + env->trans_x, 0xff6666);
-			else
-				drawline(env, y0 + env->trans_y, x0 + env->trans_x, color);
-		}
-	}
+		bresen2(env, color);
 }
+
+
+void bresen2(t_fdf *env, int color) 
+{
+	int i;
+	int xinc, yinc;
+	int cumul;
+	float dx;
+	float dy;
+
+	dx = env->pt.x1 - env->pt.x0;
+	dy = env->pt.y1 - env->pt.y0;
+	xinc = ( dx > 0 ) ? 1 : -1 ;
+	yinc = ( dy > 0 ) ? 1 : -1 ;
+	dx = fabsf(dx) ;
+  	dy = fabsf(dy) ;
+	drawline(env, env->pt.y0 + env->trans_y, env->pt.x0 + env->trans_x, color);
+ 	cumul = dy / 2 ;
+	for ( i = 1 ; i <= dy; i++ ) 
+ 	{
+		env->pt.y0 += yinc ;
+		cumul += dx ;
+		if ( cumul >= dy ) 
+		{
+			cumul -= dy;
+			env->pt.x0 += xinc; 
+		}
+		if (env->pt.z0 && env->pt.z1 != 0)
+			drawline(env, env->pt.y0 + env->trans_y, env->pt.x0 + env->trans_x, color);
+		else
+			drawline(env, env->pt.y0 + env->trans_y, env->pt.x0 + env->trans_x, color);
+		}
+}
+
 
 void sendpoints(t_fdf *env)
 {
@@ -118,49 +136,14 @@ void sendpoints(t_fdf *env)
 
 	while (pt < env->size - 1)
 	{
-		//printf("----------------------- ENTERING NEW POINT : %d -----------------------------\n", pt);
-		//printf("drawing LINE from pt  %d\n", pt);
 		if (i++ < env->x_width - 1)
-			colonne(env, pt, pt+1, 0xFFFFFF);
+			bresen1(env, pt, pt+1, 0xFFFFFF);
 		else
 			i = 0;
 		if (pt < env->size - env->x_width )
-			colonne(env, pt, (pt+env->x_width), 0xFFFFFF);
-		pt++;
+			bresen1(env, pt, (pt+env->x_width), 0xFFFFFF);
+		 pt++;
 	}
-}
-
- void iso(float *x, float *y, float *z, t_fdf *env)
-{
-	float previous_x;
-	float previous_y;
-	float previous_z;
-
-	previous_y = *y;
-	previous_z = *z;
-	previous_x = *x;
-	*y = cos(env->rot_X) * previous_y - sin(env->rot_X) * previous_z ;
-	*z = sin(env->rot_X) * previous_y + cos(env->rot_X) * previous_z;
-	previous_y = *y;
-	*x = cos(env->rot_Z) * previous_x - sin(env->rot_Z) * previous_y + 2560/2;
-	*y = sin(env->rot_Z) * previous_x + cos(env->rot_Z) * previous_y + 1300/2;
-	*z = previous_z;
-	//*x = (previous_x - previous_y) * cos(rot_X) + 2560/2;
-	//*y = -z + (previous_x + previous_y) * sin(env->rot) + 1300/2; 
-//	*y = -z * cos(env->rot) + (previous_x + previous_y) * sin(env->rot_Y) + 1300/2;
-}
-
-void 	para(float *x, float *y, float z, t_fdf *env)
-{
-	float previous_x;
-	float previous_y;
-	(void)z;
-	(void)env;
-
-	previous_x = *x;
-	previous_y = *y;
-	*x = previous_x  - previous_y  - z + 2560/2;
-	*y = previous_x + previous_y  + 1300/2;
 }
 
 
