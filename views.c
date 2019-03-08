@@ -6,7 +6,7 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 13:42:21 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/03/07 15:31:02 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/03/08 14:56:32 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	handleviews(t_fdf *env)
 	{
 		iso (&env->pt.x0, &env->pt.y0, &env->pt.z0, env);
 		iso (&env->pt.x1, &env->pt.y1, &env->pt.z1, env);
-	}
+	} 
 	else if (env->view.para == 1)
 	{
 		para (&env->pt.x0, &env->pt.y0, env->pt.z0, env);

@@ -6,7 +6,7 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:30:30 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/03/07 16:26:06 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/03/08 16:08:27 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ typedef struct s_view
 
 typedef	struct s_br
 {	
-	// float dx;
-	// float dy;
+	float dx;
+	float dy;
 	float x0;
 	float x1;
 	float y0;
 	float y1;
 	float z0;
-	float z1;/* data */
+	float z1;
 }				t_br;
 
 
@@ -73,20 +73,23 @@ typedef struct s_fdf
 	double trans_x;
 	t_view  view;
 	t_br 	pt;
+	int loop;
 
 }				t_fdf;
 
 //parser 
 int		ft_analyse(char **file, int fd, t_fdf *env);
-t_fdf	*ft_coord(t_fdf *data, char **file);
+int		ft_coord(t_fdf *data, char **file);
 int		closewin(t_fdf *env);
 void 	zoom(t_fdf *env, int key);
 void	sendpoints(t_fdf *env);
- void 	iso(float *x, float *y, float *z, t_fdf *env);
- void 	para(float *x, float *y, float z, t_fdf *env);
- void	handleviews(t_fdf *env);
- void   bresen2(t_fdf *env, int color);
-
+void 	iso(float *x, float *y, float *z, t_fdf *env);
+void 	para(float *x, float *y, float z, t_fdf *env);
+void	handleviews(t_fdf *env);
+void   bresen2(t_fdf *env, int color);
+void 	reinit(t_fdf *env);
+void	erase(t_fdf *env);
+void	base(t_fdf *env);
 
 int		keyrepartition(int key, void *param);
 
