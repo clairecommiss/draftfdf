@@ -6,7 +6,7 @@
 #    By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/20 14:10:49 by ccommiss          #+#    #+#              #
-#    Updated: 2019/03/08 16:08:42 by ccommiss         ###   ########.fr        #
+#    Updated: 2019/03/08 16:59:47 by ccommiss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ INCLUDES = -I ./minilibx_macos \
 
 LIB = -L./minilibx_macos -L./libft
 
-CFLAG = -Wall -Wextra -Werror
+CFLAG = -Wall -Wextra -Werror -g 
 
 GCC = gcc 
 

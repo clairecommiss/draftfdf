@@ -6,7 +6,7 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/26 18:26:24 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/03/08 15:51:31 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/03/08 19:59:25 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,51 +158,19 @@ int		main(int ac, char **argv)
 	int fd;
 	t_fdf env;
 	char *file = NULL;
-	int endian;
-	int bpp;
-	int size_line;
 
 	if (ac != 2)
 		return (-1); //a gerer later les exceptions et tutti quanti babe 
 	fd = open(argv[1], O_RDONLY);
-	env.zoom = INITZOOM;
-	env.rot_X = 0.52;
-	env.rot_Z = 0.52;
-	env.trans_x = 0;
-	env.trans_y = 0;
-	env.pt.dx = 0;
-	env.pt.dy = 0;
-	env.view.iso = 0;
-	env.view.para = 0;
-	env.loop = 0;
-	env.x_width = 0;
-	env.y_height = 0;
-	env.size = 0;
-	env.alt = env.zoom;
-
-	ft_analyse(&file, fd, &env);
-	printf("HOLA KE TAL\n");
-
-	env.mlx_ptr = mlx_init();
-	env.win_ptr = mlx_new_window(env.mlx_ptr, 2560, 1300, "fdf");
-	printf("HOLA KE TAL 2\n");
-	env.img_ptr = mlx_new_image(env.mlx_ptr, 2560, 1300);
-	printf("HOLA KE TAL 3\n");
-	env.info = mlx_get_data_addr(env.img_ptr, &(bpp), &(size_line), &(endian));
-	printf ("BPP : %d \n", bpp);
-	printf ("SL : %d \n", size_line);
-	printf ("END : %d \n", endian);
-
-	printf("1\n");
+	init_struct(&env);
+	if (!(ft_analyse(&file, fd, &env)))
+	{
+		ft_putstr("NTM WRONG FILE \n");
+		ft_error(&env);
+	}
 	sendpoints(&env);
-	printf("2\n");
 	mlx_put_image_to_window(env.mlx_ptr, env.win_ptr, env.img_ptr, 0, 0);
-	printf("13\n");
-	
 	mlx_hook(env.win_ptr, 2, 1<<7, keyrepartition, &env);
-	printf("14\n");
-	printf("15\n");
-	// printf("INFO = %s\n", env.info);
 	mlx_string_put(env.mlx_ptr, env.win_ptr, 500,500, 0xFFFFFF, "CECI EST UN TESSSSSSSSSST");
 	mlx_loop(env.mlx_ptr);
 

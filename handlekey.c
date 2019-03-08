@@ -6,13 +6,13 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 17:57:56 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/03/08 16:07:13 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/03/08 17:02:57 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void move(t_fdf *env, int key)
+void	move(t_fdf *env, int key)
 {
 	if (key == KEY_UP)
 		env->trans_y -= env->zoom;
@@ -29,7 +29,7 @@ void move(t_fdf *env, int key)
 	base(env);
 }
 
-void zoom(t_fdf *env, int key)
+void	zoom(t_fdf *env, int key)
 {
 	if (key == KEY_Z)
 		env->zoom = env->zoom + 1;
@@ -43,12 +43,9 @@ void zoom(t_fdf *env, int key)
 		env->rot_X = env->rot_X + 0.1;
 	else if (key == KEY_8)
 		env->rot_Z = env->rot_Z + 0.1;
-	
-
 	erase(env);
 	sendpoints(env);
 	base(env);
-
 }
 
 int		closewin(t_fdf *env)
@@ -57,12 +54,12 @@ int		closewin(t_fdf *env)
 	exit(0);
 }
 
-void view(t_fdf *env, int key)
+void	view(t_fdf *env, int key)
 {
 	if (key == KEY_I)
 	{
 		env->view.iso = 1;
-		env->view.para= 0;
+		env->view.para = 0;
 	}
 	if (key == KEY_P)
 	{
@@ -74,16 +71,18 @@ void view(t_fdf *env, int key)
 	base(env);
 }
 
-
-
 int		keyrepartition(int key, void *param)
 {
-	t_fdf *env = (t_fdf *)param;
+	t_fdf *env;
+
+	env = (t_fdf *)param;
 	if (key == 53)
 		closewin(env);
-	if (key == KEY_Z || key == KEY_D || key == KEY_H || key == KEY_L || key == KEY_4 || key == KEY_8)
+	if (key == KEY_Z || key == KEY_D || key == KEY_H || key == KEY_L
+	|| key == KEY_4 || key == KEY_8)
 		zoom(env, key);
-	if (key == KEY_LEFT || key == KEY_RIGHT || key == KEY_UP || key == KEY_DOWN || key == KEY_L)
+	if (key == KEY_LEFT || key == KEY_RIGHT || key == KEY_UP || key == KEY_DOWN
+	|| key == KEY_L)
 		move(env, key);
 	if (key == KEY_I || key == KEY_P)
 		view(env, key);
@@ -91,4 +90,3 @@ int		keyrepartition(int key, void *param)
 		reinit(env);
 	return (0);
 }
-

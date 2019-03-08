@@ -6,7 +6,7 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:30:30 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/03/08 16:08:27 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/03/08 20:01:14 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 
 # define ROT30 (30 * 3.14 / 180)
 # define INITZOOM 30
+# define GREEN 0x68C800
+# define WHITE 0xFFFFFF
 
 # include "mlx.h"
 # include "events.h" 
@@ -90,7 +92,10 @@ void   bresen2(t_fdf *env, int color);
 void 	reinit(t_fdf *env);
 void	erase(t_fdf *env);
 void	base(t_fdf *env);
-
+int		ft_error(t_fdf *env);
 int		keyrepartition(int key, void *param);
+void 		freetab(t_fdf *env);
+
+void	init_struct(t_fdf *env);
 
 #endif
