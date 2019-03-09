@@ -6,7 +6,7 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 16:06:18 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/03/08 20:02:37 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/03/09 19:55:20 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,11 @@ void	reinit(t_fdf *env)
 {
 	env->trans_y = 0;
 	env->trans_x = 0;
+	env->rot_X = 0.52;
+	env->rot_Y = 0.52;
+	env->rot_Z = 0;
 	env->zoom = INITZOOM;
+	env->alt = env->zoom;
 	erase(env);
 	sendpoints(env);
 	base(env);
@@ -67,12 +71,13 @@ void	init_struct(t_fdf *env)
 	env->info = mlx_get_data_addr(env->img_ptr, &(bpp), &(sl), &(endian));
 	env->zoom = INITZOOM;
 	env->rot_X = 0.52;
-	env->rot_Z = 0.52;
+	env->rot_Z = 0;
+	env->rot_Y = 0.52;
 	env->trans_x = 0;
 	env->trans_y = 0;
 	env->pt.dx = 0;
 	env->pt.dy = 0;
-	env->view.iso = 0;
+	env->view.iso = 1;
 	env->view.para = 0;
 	env->loop = 0;
 	env->x_width = 0;

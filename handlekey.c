@@ -6,7 +6,7 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 17:57:56 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/03/08 17:02:57 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/03/09 18:04:30 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	zoom(t_fdf *env, int key)
 		env->rot_X = env->rot_X + 0.1;
 	else if (key == KEY_8)
 		env->rot_Z = env->rot_Z + 0.1;
+	else if (key == KEY_6)
+		env->rot_Y = env->rot_Y + 0.1;
 	erase(env);
 	sendpoints(env);
 	base(env);
@@ -79,7 +81,7 @@ int		keyrepartition(int key, void *param)
 	if (key == 53)
 		closewin(env);
 	if (key == KEY_Z || key == KEY_D || key == KEY_H || key == KEY_L
-	|| key == KEY_4 || key == KEY_8)
+	|| key == KEY_4 || key == KEY_8 || key == KEY_6)
 		zoom(env, key);
 	if (key == KEY_LEFT || key == KEY_RIGHT || key == KEY_UP || key == KEY_DOWN
 	|| key == KEY_L)
