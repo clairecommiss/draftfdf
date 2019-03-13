@@ -6,13 +6,13 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/23 18:31:04 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/03/09 16:43:44 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/03/13 12:02:55 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void 		freetab(t_fdf *env)
+void		freetab(t_fdf *env)
 {
 	int x;
 
@@ -22,17 +22,16 @@ void 		freetab(t_fdf *env)
 		free(env->coord[x]);
 		x++;
 	}
-	free(env->coord);	
+	free(env->coord);
 }
 
-int 		ft_fuckingnorme(t_fdf *data, int x, int y, int pt, char **line)
+int			ft_fuckingnorme(t_fdf *data, int x, int y, int pt)
 {
-		if (!(data->coord[pt] = (float *)malloc(sizeof(float) * 3)))
-				return (0);
-			data->coord[pt][0] = (float)x - 0.5 * data->x_width;
-			data->coord[pt][1] = (float)y - 0.5 * data->y_height;
-			data->coord[pt][2] = (float)ft_atoi(line[x]);
-		return (1);
+	if (!(data->coord[pt] = (float *)malloc(sizeof(float) * 3)))
+		return (0);
+	data->coord[pt][0] = (float)x - 0.5 * data->x_width;
+	data->coord[pt][1] = (float)y - 0.5 * data->y_height;
+	return (1);
 }
 
 int			ft_coord(t_fdf *data, char **file)
@@ -52,7 +51,8 @@ int			ft_coord(t_fdf *data, char **file)
 		line = ft_strsplit(tab[y], ' ');
 		while (line[x])
 		{
-			ft_fuckingnorme(data, x, y, pt, line);
+			ft_fuckingnorme(data, x, y, pt);
+			data->coord[pt][2] = (float)ft_atoi(line[x]);
 			x++;
 			pt++;
 		}

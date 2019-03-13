@@ -6,7 +6,7 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:30:30 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/03/09 19:47:26 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/03/13 16:08:11 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,12 @@ int		closewin(t_fdf *env);
 void 	zoom(t_fdf *env, int key);
 void	sendpoints(t_fdf *env);
 void 	iso(float *x, float *y, float *z, t_fdf *env);
-void 	para(float *x, float *y, float z, t_fdf *env);
+void 	para(float *x, float *y, float z);
 void	handleviews(t_fdf *env);
+
+void	initall(t_fdf *env, int pt1, int pt2);
+void	bresen1(t_fdf *env, int pt1, int pt2);
+void 	mod_all(t_fdf *env, int pt1, int pt2);
 void   	bresen2(t_fdf *env, int pt, int pt2);
 void 	reinit(t_fdf *env);
 void	erase(t_fdf *env);
@@ -95,9 +99,12 @@ void	base(t_fdf *env);
 int		ft_error(t_fdf *env);
 int		keyrepartition(int key, void *param);
 void 	freetab(t_fdf *env);
-
+void 	mod_all(t_fdf *env, int pt1, int pt2);
+void	dispatch(t_fdf *env, int pt1, int pt2);
 void rot_Y(float *x, float *y, float *z, t_fdf *env);
 void iso(float *x, float *y, float *z, t_fdf *env);
+void	drawline(t_fdf *env, int y, int x, int color);
+int		color(t_fdf *env, int pt, int pt2);
 
 void	init_struct(t_fdf *env);
 

@@ -6,7 +6,7 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 16:06:18 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/03/09 19:55:20 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/03/13 12:14:26 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	init_struct(t_fdf *env)
 	env->coord = NULL;
 }
 
-int		ft_error(t_fdf *env) // ne pas free mlx ptr 
+int		ft_error(t_fdf *env)// ne pas free mlx ptr
 {
 	int x;
 
