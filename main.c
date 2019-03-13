@@ -6,7 +6,7 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/26 18:26:24 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/03/13 16:38:00 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/03/13 16:42:09 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*read_it(int fd)
 void	dispatch(t_fdf *env, int pt1, int pt2)
 {
 	initall(env, pt1, pt2);
-	drawline(env, env->pt.y0 + env->trans_y, env->pt.x0 + env->trans_x, 
+	drawline(env, env->pt.y0 + env->trans_y, env->pt.x0 + env->trans_x,
 	color(env, pt1, pt2));
 	if (fabsf(env->pt.dx) > fabs(env->pt.dy))
 		bresen1(env, pt1, pt2);

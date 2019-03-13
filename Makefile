@@ -6,7 +6,7 @@
 #    By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/20 14:10:49 by ccommiss          #+#    #+#              #
-#    Updated: 2019/03/13 12:20:08 by ccommiss         ###   ########.fr        #
+#    Updated: 2019/03/13 16:49:45 by ccommiss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,9 @@ SRCS = main.c \
 		views.c \
 		draw.c \
 		pratic.c \
-		get_next_line.c 
+		get_next_line.c \
+		pixelcolor.c \
+
 
 OBJS = $(SRCS:.c=.o)
 
