@@ -6,7 +6,7 @@
 #    By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/13 14:01:15 by ccommiss          #+#    #+#              #
-#    Updated: 2019/02/28 17:35:06 by ccommiss         ###   ########.fr        #
+#    Updated: 2019/03/14 14:39:40 by ccommiss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,6 +76,7 @@ SRC = ft_memset.c\
       ft_countchr.c\
       ft_strjoin2.c\
       ft_strslen.c\
+      get_next_line.c\
 
 
 HEADERS = includes/
