@@ -6,7 +6,7 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:30:30 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/03/14 15:12:22 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/03/15 11:43:11 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	erase(t_fdf *env);
 void	base(t_fdf *env);
 int		ft_error(t_fdf *env);
 int		keyrepartition(int key, void *param);
-void 	freetab(t_fdf *env);
+void 	freetab(void ***tab);
 void 	mod_all(t_fdf *env, int pt1, int pt2);
 void	dispatch(t_fdf *env, int pt1, int pt2);
 void	rot_Y(float *x, float *y, float *z, t_fdf *env);

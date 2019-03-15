@@ -6,7 +6,7 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/26 18:26:24 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/03/14 15:18:12 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/03/15 13:56:05 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,5 @@ int		main(int ac, char **argv)
 	mlx_hook(env.win_ptr, 2, 1 << 7, keyrepartition, &env);
 	base(&env);
 	mlx_loop(env.mlx_ptr);
-	while (1)// test
-		exit(0); // test
 	return (0);
 }

@@ -6,23 +6,24 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/23 18:31:04 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/03/14 15:16:51 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/03/15 14:16:33 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void		freetab(t_fdf *env)
+void		freetab(void ***tab)
 {
 	int x;
 
 	x = 0;
-	while (x < env->size)
+	while ((*tab)[x])
 	{
-		free(env->coord[x]);
+		free((*tab)[x]);
 		x++;
 	}
-	free(env->coord);
+	free(*tab);
+	*tab = NULL;
 }
 
 int			ft_fuckingnorme(t_fdf *data, int x, int y, int pt)
@@ -56,7 +57,7 @@ int			ft_coord(t_fdf *data, char **tab, int pt, char **line)
 			x++;
 			pt++;
 		}
-		free(line);
+		freetab((void ***)&line);
 		free(tab[y]); // test et je crois que ca marche
 		x = 0;
 		y++;
@@ -76,7 +77,7 @@ int			mallocdata(t_fdf *data, char **file)
 	line = NULL;
 	if (!(tab = ft_strsplit(*file, '\n')))
 	{
-		free(tab);
+		freetab((void ***)&tab);
 		return (0);
 	}
 	data->size = data->x_width * data->y_height;
@@ -87,6 +88,7 @@ int			mallocdata(t_fdf *data, char **file)
 		ft_error(data);
 		return (0);
 	}
+	free(*file);
 	return (1);
 }
 
@@ -104,7 +106,7 @@ int			ft_analyse(char **file, int fd, t_fdf *data)
 		while (tab[a])
 			a++;
 		data->x_width = data->x_width == 0 ? a : data->x_width;
-		free(tab);
+		freetab((void ***)&tab);
 		if (a != data->x_width || data->x_width <= 1)
 			ft_error(data);
 		a = 0;

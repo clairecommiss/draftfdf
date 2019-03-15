@@ -6,7 +6,7 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 16:06:18 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/03/14 15:13:30 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/03/15 13:56:18 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	init_struct(t_fdf *env)
 	env->y_height = 0;
 	env->size = 0;
 	env->alt = env->zoom;
-	env->coord = NULL;
+	env->coord = 0;
 }
 
 int		ft_error(t_fdf *env)
@@ -98,7 +98,7 @@ int		ft_error(t_fdf *env)
 	if (env->win_ptr != NULL)
 		mlx_destroy_window(env->mlx_ptr, env->win_ptr);
 	if (env->coord != NULL)
-		freetab(env);
+		freetab((void ***)&env->coord);
 	ft_putstr("An error occured. Please try with a valid map. \n");
 	exit(0);
 }
