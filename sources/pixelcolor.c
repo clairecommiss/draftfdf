@@ -6,7 +6,7 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 16:46:24 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/03/14 15:17:50 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/03/16 15:20:12 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ int		color(t_fdf *env, int pt, int pt2)
 	float alt;
 
 	alt = env->altmax;
+	if (alt > 1000)
+	{
+		ft_putstr("Sky is the limit, bro.\n");
+		ft_error(env);
+	}
 	if (env->coord[pt][2] > 0.4 * alt && env->coord[pt2][2] > 0.4 * alt)
 		return (RED);
 	else if (env->coord[pt][2] > 0.3 * alt && env->coord[pt2][2] > 0.3 * alt)

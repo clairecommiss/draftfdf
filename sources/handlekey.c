@@ -6,7 +6,7 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 17:57:56 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/03/15 11:44:58 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/03/16 15:51:58 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void	move(t_fdf *env, int key)
 
 void	zoom(t_fdf *env, int key)
 {
-	if (key == KEY_Z)
+	if (key == KEY_EQUAL)
 		env->zoom = env->zoom + 1;
-	else if (key == KEY_D && env->zoom > 1)
+	else if (key == KEY_MINUS && env->zoom > 1)
 		env->zoom = env->zoom - 1;
 	else if (key == KEY_H)
 		env->alt += 0.1 * env->zoom / 4;
@@ -55,7 +55,6 @@ int		closewin(t_fdf *env)
 	mlx_destroy_image(env->mlx_ptr, env->img_ptr);
 	mlx_destroy_window(env->mlx_ptr, env->win_ptr);
 	freetab((void ***)&env->coord);
-	while (1);
 	exit(0);
 }
 
@@ -83,7 +82,7 @@ int		keyrepartition(int key, void *param)
 	env = (t_fdf *)param;
 	if (key == 53)
 		closewin(env);
-	if (key == KEY_Z || key == KEY_D || key == KEY_H || key == KEY_L
+	if (key == KEY_MINUS || key == KEY_EQUAL || key == KEY_H || key == KEY_L
 	|| key == KEY_4 || key == KEY_8 || key == KEY_6)
 		zoom(env, key);
 	if (key == KEY_LEFT || key == KEY_RIGHT || key == KEY_UP || key == KEY_DOWN

@@ -6,7 +6,7 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/23 18:31:04 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/03/15 14:16:33 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/03/16 16:06:06 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,7 @@ void		freetab(void ***tab)
 int			ft_fuckingnorme(t_fdf *data, int x, int y, int pt)
 {
 	if (!(data->coord[pt] = (float *)malloc(sizeof(float) * 3)))
-	{
 		ft_error(data);
-		return (0);
-	}
 	data->coord[pt][0] = (float)x - 0.5 * data->x_width;
 	data->coord[pt][1] = (float)y - 0.5 * data->y_height;
 	return (1);
@@ -58,11 +55,10 @@ int			ft_coord(t_fdf *data, char **tab, int pt, char **line)
 			pt++;
 		}
 		freetab((void ***)&line);
-		free(tab[y]); // test et je crois que ca marche
 		x = 0;
 		y++;
 	}
-	free(tab); // test et je sais pas trop si c utile
+	freetab((void ***)&tab);
 	data->coord[pt] = 0;
 	return (1);
 }
@@ -78,16 +74,16 @@ int			mallocdata(t_fdf *data, char **file)
 	if (!(tab = ft_strsplit(*file, '\n')))
 	{
 		freetab((void ***)&tab);
-		return (0);
-	}
-	data->size = data->x_width * data->y_height;
-	if (!(data->coord = (float **)malloc(sizeof(float *) * (data->size + 1))))
-		return (0);
-	if (!(ft_coord(data, tab, pt, line)))
-	{
 		ft_error(data);
 		return (0);
 	}
+	data->size = data->x_width * data->y_height;
+	data->zoom = 1500 / data->x_width;
+	data->alt = data->zoom / 2;
+	if (!(data->coord = (float **)malloc(sizeof(float *) * (data->size + 1))))
+		ft_error(data);
+	if (!(ft_coord(data, tab, pt, line)))
+		ft_error(data);
 	free(*file);
 	return (1);
 }

@@ -6,17 +6,14 @@
 /*   By: ccommiss <ccommiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 14:30:30 by ccommiss          #+#    #+#             */
-/*   Updated: 2019/03/15 11:43:11 by ccommiss         ###   ########.fr       */
+/*   Updated: 2019/03/16 15:56:27 by ccommiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# define ROT30 (30 * 3.14 / 180)
-# define INITZOOM 3
 # define GREEN 0x68C800
-
 # define WHITE 0xFFFFFF
 # define ORANGE 0xFFA500
 # define YELLOW 0xffff00
@@ -39,7 +36,6 @@
 
 int		get_next_line(const int fd, char **line);
 
-
 typedef struct s_view
 {
 	int 	iso;
@@ -59,8 +55,6 @@ typedef	struct s_br
 	float z0;
 	float z1;
 }				t_br;
-
-
 
 typedef struct s_fdf
 {
